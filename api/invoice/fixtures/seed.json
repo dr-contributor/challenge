@@ -1,0 +1,95 @@
+[
+  {
+    "model": "invoice.paymentdetails",
+    "pk": "d38878b7-03a9-415c-87f0-9e92c66103f5",
+    "fields": {
+      "iban": "FR7630006000011234567890189",
+      "provider": "ARCHIMED SAS",
+      "address": "123 st., 12345, city, country",
+      "created_at": "2015-01-01 12:00:00",
+      "updated_at": "2015-01-01 12:00:00"
+    }
+  },
+  {
+    "model": "invoice.investment",
+    "pk": "398ccbdf-b278-4b3e-82da-336cc193562d",
+    "fields": {
+      "name": "Fund for Med Research Project",
+      "description": "Innovative Research Medical Project",
+      "upfront_fees": "True",
+      "fee_percentage": 0.05,
+      "amount_invested": 20000,
+      "investor_id": 1,
+      "created_at": "2023-10-20 12:00:00",
+      "updated_at": "2023-10-20 12:00:00"
+    }
+  },
+  {
+    "model": "invoice.investment",
+    "pk": "8bf226c4-b4c5-4104-97b3-e4f11c96604e",
+    "fields": {
+      "name": "Health Care App",
+      "description": "Innovative Health Care App",
+      "upfront_fees": "False",
+      "fee_percentage": 0.10,
+      "amount_invested": 15000,
+      "investor_id": 1,
+      "created_at": "2019-04-01 12:00:00",
+      "updated_at": "2023-10-20 12:00:00"
+    }
+  },
+  {
+    "model": "invoice.investment",
+    "pk": "ade25d9d-0969-4d76-91ff-974dda50c04e",
+    "fields": {
+      "name": "Medical Group Inc.",
+      "description": "Group that provides medical care to people",
+      "upfront_fees": "False",
+      "fee_percentage": 0.15,
+      "amount_invested": 5000,
+      "investor_id": 1,
+      "created_at": "2015-01-01 12:00:00",
+      "updated_at": "2023-10-20 12:00:00"
+    }
+  },
+  {
+    "model": "invoice.invoice",
+    "pk": "165977b3-ffad-4d62-8bb2-b015f2e02d55",
+    "fields": {
+      "number": "00000001",
+      "issued_date": "2023-08-20",
+      "due_date": "2023-10-01",
+      "status": "validated",
+      "payment_details_id": "d38878b7-03a9-415c-87f0-9e92c66103f5",
+      "investor_id": 1,
+      "created_at": "2023-08-22 12:00:00",
+      "updated_at": "2023-08-22 12:00:00"
+    }
+  },
+  {
+    "model": "invoice.bill",
+    "pk": "37c0ebae-b268-4559-b9b1-087c4131a232",
+    "fields": {
+      "bill_type": "subscription",
+      "invoice_id": "165977b3-ffad-4d62-8bb2-b015f2e02d55",
+      "total": 3000,
+      "date": "2023-08-22",
+      "investment_id": "398ccbdf-b278-4b3e-82da-336cc193562d",
+      "created_at": "2023-08-22 12:00:00",
+      "updated_at": "2023-08-22 12:00:00"
+    }
+  },
+  {
+    "model": "invoice.bill",
+    "pk": "d2aaeec5-148e-42ac-bc8d-3d02e6b6d3a6",
+    "fields": {
+      "bill_type": "fees",
+      "invoice_id": "165977b3-ffad-4d62-8bb2-b015f2e02d55",
+      "total": 802.75,
+      "date": "2023-08-22",
+      "investment_id": "398ccbdf-b278-4b3e-82da-336cc193562d",
+      "created_at": "2023-08-22 12:00:00",
+      "updated_at": "2023-08-22 12:00:00"
+    }
+  }
+]
