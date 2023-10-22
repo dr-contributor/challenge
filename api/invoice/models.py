@@ -1,6 +1,7 @@
 import uuid
 from django.contrib.auth.models import User as Investor
 from django.db import models
+from invoice import validators
 
 class BaseModel(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -11,7 +12,7 @@ class BaseModel(models.Model):
     abstract = True
 
 class PaymentDetails(BaseModel):
-  iban = models.CharField(max_length=34)
+  iban = models.CharField(max_length=34, validators=[validators.iban_validator])
   provider = models.CharField(max_length=255)
   address = models.CharField(max_length=255)
 
@@ -48,5 +49,6 @@ class Bill(BaseModel):
   bill_type = models.CharField(max_length=50, choices=BillType.choices, null=False)
   total = models.DecimalField(null=False, decimal_places=2, max_digits=20)
   date = models.DateField(null=False)
+  investor = models.ForeignKey(Investor, on_delete=models.DO_NOTHING, blank=False, null=False)
   investment = models.ForeignKey(Investment, on_delete=models.DO_NOTHING, blank=True, null=True)
   invoice = models.ForeignKey(Invoice, on_delete=models.DO_NOTHING, blank=True, null=True)

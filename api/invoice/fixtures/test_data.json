@@ -1,6 +1,15 @@
 [
   {
     "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "password": "password",
+      "email": "admin@admin.com"
+    }
+  },
+  {
+    "model": "auth.user",
     "pk": 2,
     "fields": {
       "username": "test",
