@@ -1,6 +1,6 @@
 .header {
   text-align: start;
-  background: lightgray;
+  background: white;
   border-radius: 0em;
   align-items: center;
   height: 6.5rem;
@@ -9,7 +9,7 @@
 .header h1 {
   font-size: 2em;
   text-align: center;
-  color: white;
+  color: black;
   margin: 0;
   padding-top: 1rem;
 }
@@ -19,7 +19,7 @@
 }
 
 .header-title span {
-  color: lightslategray;
+  color: black;
 }
 
 .header-title a {
@@ -39,18 +39,19 @@ nav li {
 }
 
 nav a {
-  color: white;
-  background-color: lightgray;
+  color: black;
+  background-color: white;
   border-radius: 0.5em;
-  padding: 1em;
+  padding: 0.7em;
 }
 
 nav a:hover {
   background-color: lightslategray;
+  color: white
 }
 
 nav a:visited {
-  color: white;
+  color: lightslategray;
 }
 
 nav ul:last-child {

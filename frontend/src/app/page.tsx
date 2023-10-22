@@ -4,6 +4,8 @@ import "./css/header.css";
 
 export default function Home() {
   return (
-    <Header />
+    <div>
+      <Header />
+    </div>
   )
 }

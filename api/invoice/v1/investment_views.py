@@ -26,7 +26,7 @@ class InvestmentListApiView(APIView):
     investment = Investment.objects.filter(name=name, investor_id=investor.id)
 
     if (len(investment) > 0):
-      return Response({"message": f'investor with id {investor.id} already invested in {name}'})
+      return Response({"message": f'investor with id {investor.id} already invested in {name}'}, status=status.HTTP_400_BAD_REQUEST)
 
     data = {
       "name": name,
@@ -61,6 +61,10 @@ class InvestmentApiView(APIView):
     investor_id = request.data.get("investor_id")
 
     investor = get_object_or_404(Investor, pk=investor_id)
+    investment = Investment.objects.filter(name=name, investor_id=investor.id)
+
+    if (len(investment) > 0):
+      return Response({"message": f'investor with id {investor.id} already invested in {name}'}, status=status.HTTP_400_BAD_REQUEST)
 
     data = {
       "name": name,

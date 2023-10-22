@@ -26,7 +26,7 @@ class InvoiceListApiView(APIView):
     bill_ids = request.data.get("bills")
 
     if (bill_ids is None or len(bill_ids) == 0):
-      return Response({"message": f'invoice {number} must have at least one bill associated'})
+      return Response({"message": f'invoice {number} must have at least one bill associated'}, status=status.HTTP_400_BAD_REQUEST)
 
     bill_ids = [uuid.UUID(el) for el in bill_ids]
     bills = Bill.objects.filter(id__in=bill_ids)
@@ -36,10 +36,10 @@ class InvoiceListApiView(APIView):
     invoice = Invoice.objects.filter(number=number)
 
     if (len(invoice) > 0):
-      return Response({"message": f'invoice {number} already exists'})
+      return Response({"message": f'invoice {number} already exists'}, status=status.HTTP_400_BAD_REQUEST)
 
     if (len(bills) == 0):
-      return Response({"message": f'invoice {number} must have at least one bill associated'})
+      return Response({"message": f'invoice {number} must have at least one bill associated'}, status=status.HTTP_400_BAD_REQUEST)
 
     data = {
       "number": number,
