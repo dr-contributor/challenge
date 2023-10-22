@@ -1,6 +1,16 @@
 version: '3.9'
 
 services:
+  archimed-frontend:
+    container_name: frontend
+    restart: always
+    build: ./frontend/
+    volumes:
+      - ./frontend/src:/frontend/src
+    ports:
+      - 3000:3000
+    environment:
+      - API_ENDPOINT=http://archimed-api:8000
   archimed-api:
     container_name: api
     command: >
