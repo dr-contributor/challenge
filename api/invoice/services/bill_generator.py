@@ -13,30 +13,37 @@ def generate_bills():
   day_of_year = now.timetuple().tm_yday
   investors = Investor.objects.filter(is_active=True)
 
+  bills_created = []
   for investor in investors:
     bills = Bill.objects.filter(investor_id = investor.id, bill_type = Bill.BillType.SUBSCRIPTION, date__year = current_year)
     investments = Investment.objects.filter(investor_id = investor.id)
     if (len(bills) == 0):
       total_invested = investments.aggregate(Sum('amount_invested'))['amount_invested__sum']
       if (total_invested < 50_000):
-        Bill(
+        bill = Bill(
           bill_type = Bill.BillType.SUBSCRIPTION,
           total = 3_000,
           date = date.today(),
           investor_id = investor.id
-        ).save()
+        )
+
+        bill.save()
+        bills_created.append(bill)
 
     for investment in investments:
       bills = Bill.objects.filter(investment_id = investment.id)
       if (investment.upfront_fees):
         if (len(bills) == 0):
-          Bill(
+          bill = Bill(
             bill_type = Bill.BillType.FEES,
             total = investment.fee_percentage * investment.amount_invested * 5,
             date = date.today(),
             investment_id = investment.id,
             investor_id = investor.id
-          ).save()
+          )
+
+          bill.save()
+          bills_created.append(bill)
       else:
         bills = bills.filter(date__year = current_year)
         if (len(bills) == 0):
@@ -63,10 +70,15 @@ def generate_bills():
             else:
               fees = (investment.fee_percentage - Decimal(0.01)) * investment.amount_invested
 
-          Bill(
+          bill = Bill(
             bill_type = Bill.BillType.FEES,
             total = fees,
             date = date.today(),
             investment_id = investment.id,
             investor_id = investor.id
-          ).save()
+          )
+
+          bill.save()
+          bills_created.append(bill)
+    
+  return bills_created

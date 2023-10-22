@@ -13,5 +13,6 @@ urlpatterns = [
   path("v1/investments/<uuid:id>", investment_views.InvestmentApiView.as_view()),
   path("v1/invoices", invoice_views.InvoiceListApiView.as_view()),
   path("v1/invoices/<uuid:id>", invoice_views.InvoiceApiView.as_view()),
-  path("v1/bills", bill_views.BillListApiView.as_view())
+  path("v1/bills", bill_views.BillListApiView.as_view()),
+  path("v1/bills/generate", bill_views.BillGenerationApiView.as_view())
 ]

@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from invoice.services import bill_generator
 from .serializers import BillSerializer
 from invoice.models import Bill
 
@@ -11,3 +12,9 @@ class BillListApiView(APIView):
 
     serializer = BillSerializer(bill, many=True)
     return Response({'bills': serializer.data, 'pagination': {}})
+
+class BillGenerationApiView(APIView):
+  def post(self, request):
+    bills = bill_generator.generate_bills()
+
+    return Response({"bills_created": BillSerializer(bills, many=True).data})
