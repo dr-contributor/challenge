@@ -33,6 +33,7 @@ class Invoice(BaseModel):
     SENT = "sent"
     PAID = "paid"
     OVERDUE = "overdue"
+    CANCELLED = "cancelled"
 
   number = models.CharField(max_length=20, unique=True)
   issued_date = models.DateField(null=False)
