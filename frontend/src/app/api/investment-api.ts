@@ -8,14 +8,24 @@ export interface Investment {
   feePercentage: Number
   amountInvested: Number
   investor: Number
+  createdAt: Date
+  updatedAt: Date
 }
 
 export const investments = async () => {
   console.log(API_ENDPOINT)
   const result: Investment[] = await fetch(API_ENDPOINT + "/invoice/api/v1/investments")
     .then((response) => response.json())
-    .then((data) => data.investments)
-    .catch((err) => console.log(err))
+    .then((data) => data.investments.map((investment: any) => {
+      return {
+        ...investment,
+        upfrontFees: investment['upfront_fees'],
+        feePercentage: investment['fee_percentage'],
+        amountInvested: investment['amount_invested'],
+        createdAt: investment['created_at'],
+        updatedAt: investment['updated_at'],
+      }
+    })).catch((err) => console.log(err))
 
   return result
 }
@@ -35,7 +45,16 @@ export const createInvestment = async (investment: Investment) => {
         "investor_id": investment.investor
       })
     }).then((response) => response.json())
-      .then((data) => data.investments)
+      .then((investment) => {
+        return {
+          ...investment,
+          upfrontFees: investment['upfront_fees'],
+          feePercentage: investment['fee_percentage'],
+          amountInvested: investment['amount_invested'],
+          createdAt: investment['created_at'],
+          updatedAt: investment['updated_at'],
+        }
+      })
       .catch((err) => console.log(err))
 
   return result
@@ -44,7 +63,6 @@ export const createInvestment = async (investment: Investment) => {
 export const getInvestment = async (id: String) => {
   const result: Investment = await fetch(API_ENDPOINT + "/invoice/api/v1/investments/" + id)
     .then((response) => response.json())
-    .then((data) => data)
     .catch((err) => console.log(err))
 
   return result
@@ -65,7 +83,16 @@ export const updateInvestment = async (investment: Investment) => {
         "investor_id": investment.investor
       })
     }).then((response) => response.json())
-      .then((data) => data.investments)
+      .then((investment) => {
+        return {
+          ...investment,
+          upfrontFees: investment['upfront_fees'],
+          feePercentage: investment['fee_percentage'],
+          amountInvested: investment['amount_invested'],
+          createdAt: investment['created_at'],
+          updatedAt: investment['updated_at'],
+        }
+      })
       .catch((err) => console.log(err))
 
   return result
@@ -78,7 +105,6 @@ export const deleteInvestment = async (id: String) => {
         'Content-Type': 'application/json'
       }
     }).then((response) => response.json())
-      .then((data) => data)
       .catch((err) => console.log(err))
 
   return result

@@ -2,21 +2,28 @@ const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT === undefined ? 'http://lo
 
 export interface Bill {
   id?: String
-  bill_type: String
+  billType: String
   total: Number
   date: Date
   investor: Number
   investment: String
   invoice: String
-  createdAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export const bills = async () => {
   console.log(API_ENDPOINT)
   const result: Bill[] = await fetch(API_ENDPOINT + "/invoice/api/v1/bills")
     .then((response) => response.json())
-    .then((data) => data.bills)
-    .catch((err) => console.log(err))
+    .then((data) => data.bills.map((bill: any) => {
+      return {
+        ...bill,
+        billType: bill['bill_type'],
+        createdAt: bill['created_at'],
+        updatedAt: bill['updated_at'],
+      }
+    })).catch((err: any) => console.log(err))
 
   return result
 }
