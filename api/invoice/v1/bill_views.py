@@ -8,9 +8,13 @@ from invoice.models import Bill
 
 class BillListApiView(APIView):
   def get(self, request):
-    bill = Bill.objects.all()
+    investor_id = request.query_params.get('investor')
+    bills = Bill.objects.all()
 
-    serializer = BillSerializer(bill, many=True)
+    if (investor_id is not None):
+      bills = bills.filter(investor_id = investor_id)
+
+    serializer = BillSerializer(bills, many=True)
     return Response({'bills': serializer.data, 'pagination': {}})
 
 class BillGenerationApiView(APIView):

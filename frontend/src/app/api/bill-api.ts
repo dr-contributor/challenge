@@ -23,8 +23,9 @@ export interface Bill {
   updatedAt?: Date
 }
 
-export const bills = async () => {
-  const result: Bill[] = await fetch(API_ENDPOINT + "/invoice/api/v1/bills")
+export const bills = async (investorId?: string) => {
+  const query = investorId !== undefined ? "?investor=" + investorId : ""
+  const result: Bill[] = await fetch(API_ENDPOINT + "/invoice/api/v1/bills" + query)
     .then((response) => response.json())
     .then((data) => data.bills.map((bill: any) => {
       const investmentObject = bill['investment_object'] ? {

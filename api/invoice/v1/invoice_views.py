@@ -32,11 +32,11 @@ class InvoiceListApiView(APIView):
     payment_details = get_object_or_404(PaymentDetails, pk=payment_details_id)
     invoice = Invoice.objects.filter(number=number)
 
-    bill_ids = [uuid.UUID(el) for el in bill_ids]
-    bills = Bill.objects.filter(id__in=bill_ids, investment__investor_id=investor.id)
-
     if (len(invoice) > 0):
       return Response({"message": f'invoice {number} already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+    bill_ids = [uuid.UUID(el) for el in bill_ids]
+    bills = Bill.objects.filter(id__in=bill_ids, investor_id=investor.id)
 
     if (len(bills) == 0):
       return Response({"message": f'invoice {number} must have at least one bill associated'}, status=status.HTTP_400_BAD_REQUEST)      

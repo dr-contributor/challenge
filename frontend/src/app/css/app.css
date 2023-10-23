@@ -77,6 +77,10 @@ h2 {
   z-index: 9999;
 }
 
+.investor-selection {
+  padding-bottom: 2rem;
+}
+
 @media (min-height: 750px) and (min-width: 1075px) {
   body {
     font-size: 100%;
