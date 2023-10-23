@@ -1,10 +1,10 @@
 const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT === undefined ? 'http://localhost:8000' : process.env.API_URL
 
 export interface PaymentDetail {
-  id?: String
-  iban: String
-  provider: String
-  address: String
+  id?: string
+  iban: string
+  provider: string
+  address: string
 }
 
 export const paymentDetails = async () => {
