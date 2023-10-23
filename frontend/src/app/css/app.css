@@ -13,3 +13,88 @@ body {
   font-size: 90%;
   background-color: lightgray;
 }
+
+img {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+h2 {
+  border-radius: 0.2em;
+  text-align: center;
+  padding: 0 0.25em;
+}
+
+.container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.grid {
+  max-width: 70rem;
+}
+
+.header {
+  width: 100vw;
+}
+
+.content {
+  text-align: justify;
+  overflow-x: hidden;
+  overflow-y: inherit;
+}
+
+.footer {
+  width: 100vw;
+}
+
+@media (min-height: 750px) and (min-width: 1075px) {
+  body {
+    font-size: 100%;
+  }
+
+  .grid {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(50px, 1fr));
+    grid-template-rows: minmax(50px, 1fr);
+    grid-auto-rows: auto;
+    gap: 10px;
+    padding-top: 6.5rem;
+    padding-bottom: 6.5rem;
+  }
+
+  .content {
+    grid-row: 1 / -1;
+    grid-column: 1 / 4;
+    overflow-y: inherit;
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+}
+
+@media (min-height: 750px) and (min-width: 750px) {
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+  }
+}
+
+@media (min-width: 1075px) {
+  .grid {
+    grid-template-columns: repeat(11, minmax(50px, 1fr));
+  }
+
+  .content {
+    grid-column: 1 / 9;
+    overflow-y: auto;
+  }
+}

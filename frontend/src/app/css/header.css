@@ -50,15 +50,11 @@ nav a:hover {
   color: white
 }
 
-nav a:visited {
-  color: lightslategray;
-}
-
 nav ul:last-child {
   padding-right: 2.5em;
 }
 
-@media (min-width: 875px) {
+@media (min-width: 1075px) {
   .header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

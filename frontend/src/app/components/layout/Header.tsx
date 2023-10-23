@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="header-title">
         <Link href="/">
-          <h1>Archimed's Capital Bill</h1>
+          <h1>ARCHIMED</h1>
         </Link>
       </div>
       <nav>
@@ -15,13 +15,13 @@ const Header: React.FC = () => {
             <Link href="/investments">Investments</Link>
           </li>
           <li>
-            <Link href="/bills">Bills</Link>
+            <Link href="/bill">Bills</Link>
           </li>
           <li>
-            <Link href="/invoices">Capital Bills</Link>
+            <Link href="/invoices">Capital Calls</Link>
           </li>
           <li>
-            <Link href="/users">Investors</Link>
+            <Link href="/payment-details">Payment Details</Link>
           </li>
         </ul>
       </nav>

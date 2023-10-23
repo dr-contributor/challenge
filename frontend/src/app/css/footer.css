@@ -1,0 +1,52 @@
+.footer {
+  background: lightgray;
+  border-radius: 0em;
+  color: lightslategray;
+  text-align: start;
+  padding: 1em;
+  margin-top: 1rem;
+}
+
+.footer-main {
+  text-align: center;
+  cursor: pointer;
+}
+
+.footer-main span {
+  color: lightslategray;
+}
+
+.footer-main h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: white;
+  background: inherit;
+  padding: inherit;
+}
+
+.footer-main a {
+  text-decoration: none;
+  color: white;
+}
+
+.footer-main a:visited {
+  color: white;
+}
+
+.footer-secondary {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.footer-secondary a {
+  color: white;
+  padding: 0.25em;
+}
+
+.footer-secondary a:visited {
+  color: white;
+}
+
+.footer-secondary a:hover {
+  color: black;
+}
