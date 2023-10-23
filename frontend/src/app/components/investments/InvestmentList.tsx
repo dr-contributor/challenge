@@ -36,6 +36,7 @@ export const InvestmentList = ({ list }: { list: Investment[] }) => {
             }) : <tr><td colSpan={7}>No Investments Found</td></tr>}
           </tbody>
         </table>
+        <Link href="/investments/new" className="btn btn-secondary">Create</Link>
       </div>
     </>
   )

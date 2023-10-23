@@ -72,7 +72,6 @@ export const createInvestment = async (investment: Investment) => {
           }
         }
       })
-      .catch((err) => console.log(err))
 
   return result
 }
