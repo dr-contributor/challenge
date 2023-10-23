@@ -31,7 +31,6 @@ export const InvoiceList = ({ list }: { list: Invoice[] }) => {
             }) : <tr><td colSpan={7}>No Invoice Details Found</td></tr>}
           </tbody>
         </table>
-        <Link href="/invoices/new" className="btn btn-secondary">Create</Link>
       </div>
     </>
   )

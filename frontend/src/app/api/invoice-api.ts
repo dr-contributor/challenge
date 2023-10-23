@@ -2,6 +2,7 @@ const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT === undefined ? 'http://lo
 
 import { Investor } from "./investor-api"
 import { PaymentDetail } from "./payment-details-api"
+import moment from "moment"
 
 export interface Invoice {
   id?: string
@@ -12,7 +13,8 @@ export interface Invoice {
   investorUser?: Investor
   status: string
   paymentDetails: string
-  paymentDetailsObject: PaymentDetail
+  paymentDetailsObject?: PaymentDetail,
+  bills?: string[]
 }
 
 export const invoices = async () => {
@@ -40,7 +42,7 @@ export const invoices = async () => {
   return result
 }
 
-export const createInvestment = async (invoice: Invoice) => {
+export const createInvoice = async (invoice: Invoice) => {
   const result: Invoice = await fetch(API_ENDPOINT + "/invoice/api/v1/invoices", {
       method: 'POST',
       headers: { 
@@ -48,22 +50,30 @@ export const createInvestment = async (invoice: Invoice) => {
       },
       body: JSON.stringify({
         "number": invoice.number,
-        "issue_date": invoice.issuedDate,
-        "due_date": invoice.dueDate,
+        "issued_date": moment(invoice.issuedDate).format("YYYY-MM-DD"),
+        "due_date": moment(invoice.dueDate).format("YYYY-MM-DD"),
         "investor_id": invoice.investor,
         "status": invoice.status,
-        "payment_details": invoice.paymentDetails,
+        "payment_details_id": invoice.paymentDetails,
+        "bills": invoice.bills,
       })
     }).then((response) => response.json())
       .then((invoice) => {
         return {
           ...invoice,
-          dueDate: invoice['due_date'],
-          issuedDate: invoice['issue_date'],
+          issuedDate: new Date(invoice['issued_date']),
+          dueDate: new Date(invoice['due_date']),
+          investorUser: {
+            ...invoice['investor_user'],
+            firstName: invoice['investor_user']['first_name'],
+            lastName: invoice['investor_user']['last_name'],
+            isActive: invoice['investor_user']['is_active'],
+            isStaff: invoice['investor_user']['is_staff'],
+          },
           paymentDetails: invoice['payment_details'],
+          paymentDetailsObject: invoice['payment_details_object']
         }
       })
-      .catch((err) => console.log(err))
 
   return result
 }
