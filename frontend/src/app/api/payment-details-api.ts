@@ -29,7 +29,6 @@ export const createPaymentDetail = async (paymentDetail: PaymentDetail) => {
         "address": paymentDetail.address,
       })
     }).then((response) => response.json())
-      .catch((err) => console.log(err))
 
   return result
 }
@@ -54,7 +53,6 @@ export const updatePaymentDetail = async (paymentDetail: PaymentDetail) => {
         "address": paymentDetail.address,
       })
     }).then((response) => response.json())
-      .catch((err) => console.log(err))
 
   return result
 }

@@ -1,16 +1,15 @@
-import { Investment, updateInvestment } from "@/app/api/investment-api"
 import { Loading } from "@/app/components/Loading"
 import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from 'next/navigation';
 import { Notification } from "../Notification"
-import { PaymentDetail, updatePaymentDetail } from "@/app/api/payment-details-api"
+import { PaymentDetail, createPaymentDetail, updatePaymentDetail } from "@/app/api/payment-details-api"
 
-export const EditPaymentDetails = ({ paymentDetail }: { paymentDetail: PaymentDetail }) => {
+export const CreatePaymentDetail = () => {
   const [loading, setLoading] = useState(false)
-  const [iban, setIban] = useState(paymentDetail.iban)
-  const [provider, setProvider] = useState(paymentDetail.provider)
-  const [address, setAddress] = useState(paymentDetail.address)
+  const [iban, setIban] = useState("")
+  const [provider, setProvider] = useState("")
+  const [address, setAddress] = useState("")
   const [notification, setNotification] = useState("")
   const [notificationType, setNotificationType] = useState("")
   const { push } = useRouter();
@@ -29,24 +28,23 @@ export const EditPaymentDetails = ({ paymentDetail }: { paymentDetail: PaymentDe
     setLoading(true)
     event.preventDefault();
     
-    const updatedPaymentDetail: PaymentDetail = {
-      id: paymentDetail.id,
+    const newPaymentDetail: PaymentDetail = {
       iban,
       provider,
       address
     }
 
-    const performUpdate = async () => {
-      return await updatePaymentDetail(updatedPaymentDetail)
+    const performCreate = async () => {
+      return await createPaymentDetail(newPaymentDetail)
     }
 
-    performUpdate()
-    .then(result => push("/payment-details"))
-    .catch(err => {
-      setNotification("Investment could not be updated")
-      setNotificationType("danger")
-      console.log(err)
-    })
+    performCreate()
+      .then(result => push("/payment-details"))
+      .catch(err => {
+        setNotification("Payment detail could not be created")
+        setNotificationType("danger")
+        console.log(err)
+      })
 
     setLoading(false)
   }
