@@ -27,7 +27,7 @@ export const bills = async () => {
   const result: Bill[] = await fetch(API_ENDPOINT + "/invoice/api/v1/bills")
     .then((response) => response.json())
     .then((data) => data.bills.map((bill: any) => {
-      const investmentObject = bill.investmentObject ? {
+      const investmentObject = bill['investment_object'] ? {
         ...bill['investment_object'],
         upfrontFees: bill['investment_object']['upfront_fees'],
         feePercentage: new Number(bill['investment_object']['fee_percentage']),

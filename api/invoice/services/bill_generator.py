@@ -19,7 +19,7 @@ def generate_bills():
     investments = Investment.objects.filter(investor_id = investor.id)
     if (len(bills) == 0):
       total_invested = investments.aggregate(Sum('amount_invested'))['amount_invested__sum']
-      if (total_invested < 50_000):
+      if (len(investments) > 0 and total_invested < 50_000):
         bill = Bill(
           bill_type = Bill.BillType.SUBSCRIPTION,
           total = 3_000,

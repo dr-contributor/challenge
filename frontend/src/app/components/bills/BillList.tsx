@@ -1,7 +1,21 @@
-import { Bill } from '@/app/api/bill-api';
-import Link from 'next/link';
+"use client"
+
+import { Bill, generateBills } from '@/app/api/bill-api';
+import { useRouter } from 'next/navigation';
 
 export const BillList = ({ list }: { list: Bill[] }) => {
+  const { push } = useRouter();
+
+  const generateBillsRequest = async () => {
+    return await generateBills()
+  }
+
+  const onButtonPressed = () => {
+    generateBillsRequest()
+      .then(result => push('/'))
+      .catch(err => console.log(err))
+  }
+
   return (
     <>
       <div className="table-responsive">
@@ -31,7 +45,7 @@ export const BillList = ({ list }: { list: Bill[] }) => {
             }) : <tr><td colSpan={7}>No Bills Found</td></tr>}
           </tbody>
         </table>
-        <button className='btn btn-secondary'>Generate Bills</button>
+        <button className='btn btn-secondary' onClick={onButtonPressed}>Generate Bills</button>
       </div>
     </>
   )
