@@ -26,7 +26,7 @@ export const PaymentDetailList = ({ list }: { list: PaymentDetail[] }) => {
                   </td>
                 </tr>
               )
-            }) : <tr><td colSpan={7}>No Investments Found</td></tr>}
+            }) : <tr><td colSpan={7}>No Payment Details Found</td></tr>}
           </tbody>
         </table>
         <Link href="/payment-details/new" className="btn btn-secondary">Create</Link>

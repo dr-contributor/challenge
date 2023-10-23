@@ -1,4 +1,4 @@
-import { investments, Investment } from "@/app/api/investment-api"
+import { Investment } from "@/app/api/investment-api"
 import Link from 'next/link';
 
 export const InvestmentList = ({ list }: { list: Investment[] }) => {

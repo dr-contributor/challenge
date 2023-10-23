@@ -19,12 +19,19 @@ class InvestmentSerializer(serializers.ModelSerializer):
      model = Investment
      fields = ('id', 'name', 'description', 'upfront_fees', 'fee_percentage', 'amount_invested', 'investor', 'investor_user', 'created_at', 'updated_at')
 
+class InvoiceBillSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Invoice
+    fields = ('id', 'number')
+
 class BillSerializer(serializers.ModelSerializer):
   investor_user = InvestorSerializer(read_only=True)
+  investment_object = InvestmentSerializer(read_only=True)
+  invoice_object = InvoiceBillSerializer(read_only=True)
 
   class Meta:
      model = Bill
-     fields = ('id', 'bill_type', 'total', 'date', 'investor', 'investor_user', 'investment', 'invoice')
+     fields = ('id', 'bill_type', 'total', 'date', 'investor', 'investor_user', 'investment', 'investment_object', 'invoice', 'invoice_object')
 
 class InvoiceSerializer(serializers.ModelSerializer):
   bills = BillSerializer(source="bill_set", many=True, read_only=True)

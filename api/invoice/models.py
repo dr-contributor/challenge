@@ -65,3 +65,11 @@ class Bill(BaseModel):
   @property
   def investor_user(self):
     return self.investor
+  
+  @property
+  def investment_object(self):
+    return self.investment
+  
+  @property
+  def invoice_object(self):
+    return self.invoice

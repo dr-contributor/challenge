@@ -16,7 +16,6 @@ export interface Investment {
 }
 
 export const investments = async () => {
-  console.log(API_ENDPOINT)
   const result: Investment[] = await fetch(API_ENDPOINT + "/invoice/api/v1/investments")
     .then((response) => response.json())
     .then((data) => data.investments.map((investment: any) => {
