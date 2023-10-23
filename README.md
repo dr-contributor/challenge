@@ -23,4 +23,14 @@ This will build the api, front end and populate the database.
 
 The User model that comes with the django admin module will be used as investor model.
 
-For the invoice (capital bill), the same structure as the example was used, but with the addition of the list of bills each with a short description that mentions the purpose of the charge, i.e. subscription bill or fees bill.
+## Improvements
+
+Some of the following were not implemented due to time constraints
+
+First improvement for the app would be to move the generation of the bills to the background. A library such a celery could be useful to not only move the process to the backgroun but to also schedule it to run evry day early in the morning.
+
+Second improvement would be to add authentication, the auth User model that is included in the django admin module was used as the application User model (renamed as Investor). This makes it easier to implement JWT authentication using the library `rest_framework_simplejwt`.
+
+Third improvement would be to add pagination to the list methods of each endpoint. Currently the response is flexible and accounts for the inclusion of pagination further down the line of the development.
+
+The frontend can be improved upon by using a state management library.

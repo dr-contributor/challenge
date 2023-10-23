@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="footer-secondary">
         © 2023 Daniel Rosato. Powered by CSS, ReactJS, NextJS and Typescript.
-        <a href="https://github.com/" target="_blank">
+        <a href="https://github.com/dr-contributor/challenge" target="_blank">
           Site's source code
         </a>
         <br />
