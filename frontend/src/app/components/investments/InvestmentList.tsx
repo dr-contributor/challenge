@@ -1,5 +1,4 @@
 import { investments, Investment } from "@/app/api/investment-api"
-import { useEffect, useState } from "react"
 import Link from 'next/link';
 
 export const InvestmentList = ({ list }: { list: Investment[] }) => {
