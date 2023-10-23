@@ -1,26 +1,18 @@
 const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT === undefined ? 'http://localhost:8000' : process.env.API_URL
 
-export interface Investor {
-  id?: String
-  email: String
-  username: String
-  firstName: String
-  lastName: String
-  isActive: Boolean
-  isStaff: Boolean
-}
+import { Investor } from "./investor-api"
 
 export interface Investment {
-  id?: String
-  name: String
-  description: String
-  upfrontFees: Boolean
-  feePercentage: Number
-  amountInvested: Number
-  investor: Number
-  investorUser: Investor
-  createdAt: Date
-  updatedAt: Date
+  id?: string
+  name: string
+  description: string
+  upfrontFees: boolean
+  feePercentage: number
+  amountInvested: number
+  investor: number
+  investorUser?: Investor
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export const investments = async () => {
@@ -85,9 +77,26 @@ export const createInvestment = async (investment: Investment) => {
   return result
 }
 
-export const getInvestment = async (id: String) => {
+export const getInvestment = async (id: string) => {
   const result: Investment = await fetch(API_ENDPOINT + "/invoice/api/v1/investments/" + id)
     .then((response) => response.json())
+    .then((investment) => {
+      return {
+        ...investment,
+        upfrontFees: investment['upfront_fees'],
+        feePercentage: new Number(investment['fee_percentage']),
+        amountInvested: new Number(investment['amount_invested']),
+        createdAt: new Date(investment['created_at']),
+        updatedAt: new Date(investment['updated_at']),
+        investorUser: {
+          ...investment['investor_user'],
+          firstName: investment['investor_user']['first_name'],
+          lastName: investment['investor_user']['last_name'],
+          isActive: investment['investor_user']['is_active'],
+          isStaff: investment['investor_user']['is_staff'],
+        }
+      }
+  })
     .catch((err) => console.log(err))
 
   return result
@@ -125,12 +134,11 @@ export const updateInvestment = async (investment: Investment) => {
           }
         }
       })
-      .catch((err) => console.log(err))
 
   return result
 }
 
-export const deleteInvestment = async (id: String) => {
+export const deleteInvestment = async (id: string) => {
   const result: Investment = await fetch(API_ENDPOINT + "/invoice/api/v1/investments/" + id, {
       method: 'DELETE',
       headers: { 

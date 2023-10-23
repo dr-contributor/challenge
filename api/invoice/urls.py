@@ -3,7 +3,8 @@ from .v1 import (
   payment_detail_views,
   investment_views,
   invoice_views,
-  bill_views
+  bill_views,
+  investor_views
 )
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
   path("v1/invoices", invoice_views.InvoiceListApiView.as_view()),
   path("v1/invoices/<uuid:id>", invoice_views.InvoiceApiView.as_view()),
   path("v1/bills", bill_views.BillListApiView.as_view()),
-  path("v1/bills/generate", bill_views.BillGenerationApiView.as_view())
+  path("v1/bills/generate", bill_views.BillGenerationApiView.as_view()),
+  path("v1/investors", investor_views.InvestorListApiView.as_view()),
 ]

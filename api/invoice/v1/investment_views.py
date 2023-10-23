@@ -52,7 +52,7 @@ class InvestmentApiView(APIView):
     return Response(serializer.data)
 
   def patch(self, request, id):
-    get_object_or_404(Investment, pk=id)
+    investmentToUpdate = get_object_or_404(Investment, pk=id)
     name = request.data.get("name")
     description = request.data.get("description")
     upfront_fees = request.data.get("upfront_fees")
@@ -63,7 +63,8 @@ class InvestmentApiView(APIView):
     investor = get_object_or_404(Investor, pk=investor_id)
     investment = Investment.objects.filter(name=name, investor_id=investor.id)
 
-    if (len(investment) > 0):
+    # if the investor gets updated, the check is performed
+    if (investmentToUpdate.investor.id != investor_id and len(investment) > 0):
       return Response({"message": f'investor with id {investor.id} already invested in {name}'}, status=status.HTTP_400_BAD_REQUEST)
 
     data = {
@@ -75,7 +76,7 @@ class InvestmentApiView(APIView):
       "investor": investor.id
     }
 
-    serializer = InvestmentSerializer(data=data)
+    serializer = InvestmentSerializer(instance=investmentToUpdate, data=data)
     if (serializer.is_valid()):
       serializer.save()
       return Response(serializer.data)

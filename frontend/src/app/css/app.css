@@ -49,6 +49,34 @@ h2 {
   width: 100vw;
 }
 
+.loading {
+  position: absolute;
+  top: auto;
+  left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.loading-modal {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  opacity: 0.5;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+  background-color: grey;
+  z-index: 9999;
+}
+
 @media (min-height: 750px) and (min-width: 1075px) {
   body {
     font-size: 100%;
