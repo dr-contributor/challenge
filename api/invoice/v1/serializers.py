@@ -36,7 +36,8 @@ class BillSerializer(serializers.ModelSerializer):
 class InvoiceSerializer(serializers.ModelSerializer):
   bills = BillSerializer(source="bill_set", many=True, read_only=True)
   investor_user = InvestorSerializer(read_only=True)
+  payment_details_object = PaymentDetailsSerializer(read_only=True)
 
   class Meta:
      model = Invoice
-     fields = ('id', 'number', 'issued_date', 'due_date', 'investor', 'investor_user', 'status', 'payment_details', 'bills')
+     fields = ('id', 'number', 'issued_date', 'due_date', 'investor', 'investor_user', 'status', 'payment_details', 'payment_details_object', 'bills')

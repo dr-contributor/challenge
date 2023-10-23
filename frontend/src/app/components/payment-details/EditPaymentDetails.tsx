@@ -1,4 +1,3 @@
-import { Investment, updateInvestment } from "@/app/api/investment-api"
 import { Loading } from "@/app/components/Loading"
 import Link from "next/link"
 import { useState } from "react"

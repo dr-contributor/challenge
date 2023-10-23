@@ -1,20 +1,40 @@
 const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT === undefined ? 'http://localhost:8000' : process.env.API_URL
 
+import { Investor } from "./investor-api"
+import { PaymentDetail } from "./payment-details-api"
+
 export interface Invoice {
-  id?: String
-  number: String
+  id?: string
+  number: string
   issuedDate: Date
   dueDate: Date
-  investor: Number
-  status: String
-  paymentDetails: String
+  investor: number
+  investorUser?: Investor
+  status: string
+  paymentDetails: string
+  paymentDetailsObject: PaymentDetail
 }
 
 export const invoices = async () => {
   console.log(API_ENDPOINT)
   const result: Invoice[] = await fetch(API_ENDPOINT + "/invoice/api/v1/invoices")
     .then((response) => response.json())
-    .then((data) => data.invoices)
+    .then((data) => data.invoices.map((invoice: any) => {
+      return {
+        ...invoice,
+        issuedDate: new Date(invoice['issued_date']),
+        dueDate: new Date(invoice['due_date']),
+        investorUser: {
+          ...invoice['investor_user'],
+          firstName: invoice['investor_user']['first_name'],
+          lastName: invoice['investor_user']['last_name'],
+          isActive: invoice['investor_user']['is_active'],
+          isStaff: invoice['investor_user']['is_staff'],
+        },
+        paymentDetails: invoice['payment_details'],
+        paymentDetailsObject: invoice['payment_details_object']
+      }
+    }))
     .catch((err) => console.log(err))
 
   return result

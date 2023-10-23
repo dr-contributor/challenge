@@ -49,6 +49,10 @@ class Invoice(BaseModel):
   @property
   def investor_user(self):
     return self.investor
+  
+  @property
+  def payment_details_object(self):
+    return self.payment_details
 
 class Bill(BaseModel):
   class BillType(models.TextChoices):
