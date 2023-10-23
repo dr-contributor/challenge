@@ -1,5 +1,11 @@
+from django.contrib.auth.models import User as Investor
 from rest_framework import serializers
 from invoice.models import PaymentDetails, Investment, Invoice, Bill
+
+class InvestorSerializer(serializers.ModelSerializer):
+  class Meta:
+     model = Investor
+     fields = ('id', 'email', 'username', 'first_name', 'last_name', 'is_active', 'is_staff')
 
 class PaymentDetailsSerializer(serializers.ModelSerializer):
   class Meta:
@@ -7,18 +13,23 @@ class PaymentDetailsSerializer(serializers.ModelSerializer):
      fields = ('id', 'iban', 'provider', 'address', 'created_at', 'updated_at')
 
 class InvestmentSerializer(serializers.ModelSerializer):
+  investor_user = InvestorSerializer(read_only=True)
+
   class Meta:
      model = Investment
-     fields = ('id', 'name', 'description', 'upfront_fees', 'fee_percentage', 'amount_invested', 'investor')
+     fields = ('id', 'name', 'description', 'upfront_fees', 'fee_percentage', 'amount_invested', 'investor', 'investor_user', 'created_at', 'updated_at')
 
 class BillSerializer(serializers.ModelSerializer):
+  investor_user = InvestorSerializer(read_only=True)
+
   class Meta:
      model = Bill
-     fields = ('id', 'bill_type', 'total', 'date', 'investor', 'investment', 'invoice')
+     fields = ('id', 'bill_type', 'total', 'date', 'investor', 'investor_user', 'investment', 'invoice')
 
 class InvoiceSerializer(serializers.ModelSerializer):
   bills = BillSerializer(source="bill_set", many=True, read_only=True)
+  investor_user = InvestorSerializer(read_only=True)
 
   class Meta:
      model = Invoice
-     fields = ('id', 'number', 'issued_date', 'due_date', 'investor', 'status', 'payment_details', 'bills')
+     fields = ('id', 'number', 'issued_date', 'due_date', 'investor', 'investor_user', 'status', 'payment_details', 'bills')

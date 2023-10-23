@@ -24,6 +24,10 @@ class Investment(BaseModel):
   amount_invested = models.DecimalField(null=False, decimal_places=2, max_digits=20)
   investor = models.ForeignKey(Investor, on_delete=models.DO_NOTHING, blank=False, null=False)
 
+  @property
+  def investor_user(self):
+    return self.investor
+
   class Meta:
     constraints = [models.UniqueConstraint(fields=["name", "investor_id"], name="unique_investment_name_by_investor")]
 
@@ -42,6 +46,10 @@ class Invoice(BaseModel):
   status = models.CharField(max_length=50, choices=InvoiceStatus.choices)
   payment_details = models.ForeignKey(PaymentDetails, on_delete=models.DO_NOTHING, blank=False, null=False)
 
+  @property
+  def investor_user(self):
+    return self.investor
+
 class Bill(BaseModel):
   class BillType(models.TextChoices):
     SUBSCRIPTION = "subscription"
@@ -53,3 +61,7 @@ class Bill(BaseModel):
   investor = models.ForeignKey(Investor, on_delete=models.DO_NOTHING, blank=False, null=False)
   investment = models.ForeignKey(Investment, on_delete=models.DO_NOTHING, blank=True, null=True)
   invoice = models.ForeignKey(Invoice, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+  @property
+  def investor_user(self):
+    return self.investor

@@ -1,5 +1,15 @@
 const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT === undefined ? 'http://localhost:8000' : process.env.API_URL
 
+export interface Investor {
+  id?: String
+  email: String
+  username: String
+  firstName: String
+  lastName: String
+  isActive: Boolean
+  isStaff: Boolean
+}
+
 export interface Investment {
   id?: String
   name: String
@@ -8,6 +18,7 @@ export interface Investment {
   feePercentage: Number
   amountInvested: Number
   investor: Number
+  investorUser: Investor
   createdAt: Date
   updatedAt: Date
 }
@@ -20,10 +31,17 @@ export const investments = async () => {
       return {
         ...investment,
         upfrontFees: investment['upfront_fees'],
-        feePercentage: investment['fee_percentage'],
-        amountInvested: investment['amount_invested'],
-        createdAt: investment['created_at'],
-        updatedAt: investment['updated_at'],
+        feePercentage: new Number(investment['fee_percentage']),
+        amountInvested: new Number(investment['amount_invested']),
+        createdAt: new Date(investment['created_at']),
+        updatedAt: new Date(investment['updated_at']),
+        investorUser: {
+          ...investment['investor_user'],
+          firstName: investment['investor_user']['first_name'],
+          lastName: investment['investor_user']['last_name'],
+          isActive: investment['investor_user']['is_active'],
+          isStaff: investment['investor_user']['is_staff'],
+        }
       }
     })).catch((err) => console.log(err))
 
@@ -49,10 +67,17 @@ export const createInvestment = async (investment: Investment) => {
         return {
           ...investment,
           upfrontFees: investment['upfront_fees'],
-          feePercentage: investment['fee_percentage'],
-          amountInvested: investment['amount_invested'],
-          createdAt: investment['created_at'],
-          updatedAt: investment['updated_at'],
+          feePercentage: new Number(investment['fee_percentage']),
+          amountInvested: new Number(investment['amount_invested']),
+          createdAt: new Date(investment['created_at']),
+          updatedAt: new Date(investment['updated_at']),
+          investorUser: {
+            ...investment['investor_user'],
+            firstName: investment['investor_user']['first_name'],
+            lastName: investment['investor_user']['last_name'],
+            isActive: investment['investor_user']['is_active'],
+            isStaff: investment['investor_user']['is_staff'],
+          }
         }
       })
       .catch((err) => console.log(err))
@@ -87,10 +112,17 @@ export const updateInvestment = async (investment: Investment) => {
         return {
           ...investment,
           upfrontFees: investment['upfront_fees'],
-          feePercentage: investment['fee_percentage'],
-          amountInvested: investment['amount_invested'],
-          createdAt: investment['created_at'],
-          updatedAt: investment['updated_at'],
+          feePercentage: new Number(investment['fee_percentage']),
+          amountInvested: new Number(investment['amount_invested']),
+          createdAt: new Date(investment['created_at']),
+          updatedAt: new Date(investment['updated_at']),
+          investorUser: {
+            ...investment['investor_user'],
+            firstName: investment['investor_user']['first_name'],
+            lastName: investment['investor_user']['last_name'],
+            isActive: investment['investor_user']['is_active'],
+            isStaff: investment['investor_user']['is_staff'],
+          }
         }
       })
       .catch((err) => console.log(err))
